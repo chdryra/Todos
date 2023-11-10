@@ -5,15 +5,15 @@ import uvicorn
 from fastapi import FastAPI
 
 from server_config import ServerConfig, get_db_uri
-from routers import notes, users, root
+from routers import todos, users, root
 
 
 def run_server(config: ServerConfig) -> None:
     app = FastAPI()
     app.include_router(users.router)
-    app.include_router(notes.router)
+    app.include_router(todos.router)
     app.include_router(root.router)
-
+ 
     uvicorn.run(app, host=config.ip, port=config.port, log_level="info", proxy_headers=True)
 
 

@@ -16,8 +16,4 @@ router = APIRouter(
 
 @router.get("/")
 async def root(db: Annotated[PostgresDb, Depends(get_db)]):
-    api = f"/ GET"
-    db.insert(f"""
-       INSERT into api_calls(api) values('{api}')
-       """)
     return {"message": "Hello Bigger Applications!"}
