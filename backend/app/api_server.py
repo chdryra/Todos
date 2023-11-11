@@ -3,13 +3,20 @@ import argparse
 import uvicorn
 
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
 from server_config import ServerConfig, get_db_uri
 from routers import todos, users, root
 
-
 def run_server(config: ServerConfig) -> None:
     app = FastAPI()
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=['*'],
+        allow_credentials=True,
+        allow_methods=['*'],
+        allow_headers=['*']
+    )
     app.include_router(users.router)
     app.include_router(todos.router)
     app.include_router(root.router)
